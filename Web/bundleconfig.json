@@ -1,0 +1,110 @@
+[
+  {
+    "outputFileName": "Scripts/sys/defaultPage.min.js",
+    "inputFiles": [
+      "Scripts/sys/defaultPage.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/jquery.xml2json.min.js",
+    "inputFiles": [
+      "Scripts/sys/jquery.xml2json.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/sendSMS.min.js",
+    "inputFiles": [
+      "Scripts/sys/sendSMS.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/Common.min.js",
+    "inputFiles": [
+      "Scripts/sys/Common.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/commonMasterDetails.min.js",
+    "inputFiles": [
+      "Scripts/sys/commonMasterDetails.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/clientsManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/clientsManager.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/citiesManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/citiesManager.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/DefaultGridVariables.min.js",
+    "inputFiles": [
+      "Scripts/sys/DefaultGridVariables.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/DefaultGridManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/DefaultGridManager.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/DataService.min.js",
+    "inputFiles": [
+      "Scripts/sys/DataService.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/balances.min.js",
+    "inputFiles": [
+      "Scripts/sys/balances.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/DefaultMasterDetailsManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/DefaultMasterDetailsManager.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/InvoicesAdd.min.js",
+    "inputFiles": [
+      "Scripts/sys/InvoicesAdd.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/InvoicesPrint.min.js",
+    "inputFiles": [
+      "Scripts/sys/InvoicesPrint.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/jquery-dateFormat.min.js",
+    "inputFiles": [
+      "Scripts/sys/jquery-dateFormat.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/moment.min.js",
+    "inputFiles": [
+      "Scripts/sys/moment.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/utilities.min.js",
+    "inputFiles": [
+      "Scripts/sys/utilities.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/datatable/Arabic.min.js",
+    "inputFiles": [
+      "Scripts/datatable/Arabic.js"
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+﻿.footer-copyright-logo img{max-width:60px;}
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+}
