@@ -27,13 +27,13 @@ public partial class sys_Default : Page
 
         // get all of data.
         var _ds = new Select().SelectLists("Users_Login", _params);
-
         var dt = _ds.Tables[0];
+        
         if (dt.Rows.Count > 0)
         {
             SessionManager.Current.ID = string.Format("{0}", dt.Rows[0][0]);
             SessionManager.Current.Name = string.Format("{0}", dt.Rows[0][1]);
-            //SessionManager.Current.Level = string.Format("{0}", dt.Rows[0][2]);
+            //SessionManager.Current.Lang = string.Format("{0}", dt.Rows[0][2]);
 
             CookiesManager.SaveCoockie();
 

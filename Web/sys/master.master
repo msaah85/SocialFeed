@@ -123,21 +123,42 @@
                 <li>
                     <a href="Clients">
                         <i class="menu-icon fa fa-group"></i>
-                        <span class="menu-text">Clients </span>
+                        <span class="menu-text">Clients</span>
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li>
                     <a href="Cities">
                         <i class="menu-icon fa fa-globe"></i>
-                        <span class="menu-text">Cities </span>
+                        <span class="menu-text">Cities</span>
                     </a>
                     <b class="arrow"></b>
                 </li>
                 <li>
                     <a href="Users">
                         <i class="menu-icon fa fa-user"></i>
-                        <span class="menu-text">Users </span>
+                        <span class="menu-text">Users</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href="Social/AddPost">
+                        <span class="menu-icon ace-icon glyphicon glyphicon-share"></span>
+                        <span class="menu-text">Add Post</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href="Social/Posts">
+                        <span class="menu-icon glyphicon glyphicon-retweet"></span>
+                        <span class="menu-text">Posts</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href="Settings">
+                        <i class="menu-icon ace-icon fa fa-cogs"></i>
+                        <span class="menu-text">Settings</span>
                     </a>
                     <b class="arrow"></b>
                 </li>

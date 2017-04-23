@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Threading;
+using System.Web;
 
 public class SessionManager
 {
@@ -6,6 +7,7 @@ public class SessionManager
     {
         ID = "0";
         IP = HttpContext.Current.Request.UserHostAddress;
+        Lang = Thread.CurrentThread.CurrentCulture.Name;
     }
 
     public static SessionManager Current
@@ -33,6 +35,6 @@ public class SessionManager
 
     public string ID { get; set; }
     public string Name { get; set; }
-    public string Level { get; set; }
+    public string Lang { get; set; }
     public string IP { get; set; }
 }

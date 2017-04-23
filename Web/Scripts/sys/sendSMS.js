@@ -52,9 +52,7 @@ var
 
                     // send sms below to every one
                     if (message !== '' && clientsNumbers.length > 0) {
-
-                        console.log(parm);
-
+                        
                         dataService.callAjax('Post', JSON.stringify(parm), seUrl, successSendCall, commonManger.errorException);
                     }
                     else {

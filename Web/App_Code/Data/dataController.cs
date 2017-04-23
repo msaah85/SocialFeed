@@ -89,12 +89,12 @@ public class DataController : ApiController
             {
                 ID = saved,
                 Status = true,
-                message = Resources.Resource_ar.SuccessSave
+                message = Resources.sys.lang.SuccessSave
             };
         }
         else
         {
-            data = new { ID = 0, status = false, message = Resources.Resource_ar.ErrorSave };
+            data = new { ID = 0, status = false, message = Resources.sys.lang.ErrorSave };
         }
 
         return data;

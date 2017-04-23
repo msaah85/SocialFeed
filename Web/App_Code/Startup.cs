@@ -1,4 +1,5 @@
 ﻿using Cireson.HttpResponseCompression.Owin;
+using Hangfire;
 using Microsoft.Owin;
 using Owin;
 
@@ -9,6 +10,12 @@ namespace Shared.Marketing.Web
         public void Configuration(IAppBuilder app) {
             ConfigureAuth(app);
             app.UseResponseCompressingMiddleware();
+            
+            GlobalConfiguration.Configuration
+                .UseSqlServerStorage("Aliraqcars.Domain.Properties.Settings.AliraqCarsConnectionString");
+
+            //app.UseHangfireDashboard();
+            app.UseHangfireServer();
         }
     }
 }
