@@ -28,7 +28,7 @@ public class UploadController : ApiController
 
         try
         {
-            image.Save(filePath, ImageFormat.Jpeg);            
+            image.Save(filePath, ImageFormat.Jpeg);
         }
         catch (Exception ex)
         {

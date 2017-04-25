@@ -8,6 +8,7 @@ using System.Security;
 using System.Web.Hosting;
 using TweetSharp;
 
+
 namespace Share.Social
 {
     /// <summary>
@@ -20,9 +21,9 @@ namespace Share.Social
         // options
         // long live page token from: https://developers.facebook.com/tools/explorer/
         // fb.com/DarAlQimaFashion
-        static string fb_page_access_token = "EAAS1raXmcQsBANW9UZAdTa5FGQGf3miklbPutZAR24RTQ3dfECRoLSN9AbQCXYqyQhGt5YlEOEXcecMcKu1P7Nn1cOZA4vRHoZAZCfZCvbngM0op85NzI55ZCZCdDSvCqiIQtivrl4ZCBbeqWDZAw19fV894P5pMVZBeVQZD",
-                      fb_page_url = "/DarAlQimaFashion/feed",
-                      // instagram
+        static string fb_page_access_token = "EAAS1raXmcQsBAFSV3iGQd1biGRu4NvT9g7gmWkeETVAewfQrADhp0OVu3UwOn18RZAQyZAoFUMG5EUBsXCZBnd9IFR7k04AmpnJ4wsCn0gtTEILGvplmLZCvbGenSAa9xFYWT5j7Uj31kXZAPzXYo3zQmJLGnvTTjqJ0yad3njAZDZD",
+                      fb_page_url = "/DarAlQimaFashion/photos", // Page ID: 1395835067129431 
+                                                                // instagram
                       inst_page_id = "daralqimafashionuae",
                       inst_pass = "Firas*1972",
                       // twitter
@@ -32,11 +33,12 @@ namespace Share.Social
                       tw_tokenSecret = "wNcZjPnkMcBC6xxpRbHtwL0drNW7BxEGldu5jirmzlMH5";
 
 
+
         public static string PostingToAll(string postMsg, string picture)
         {
             // Fire-and-forget jobs are executed only once and almost immediately after creation.
             // facebook page
-            var facebookJobId = BackgroundJob.Enqueue(() => PostToFB(postMsg, picture));
+            var facebookJobId = BackgroundJob.Enqueue(() => PostToFB(postMsg, picture)); // 
 
 
             ////Delayed jobs are executed only once too, but not immediately, after a certain time interval.
@@ -49,13 +51,13 @@ namespace Share.Social
             var instagramJobId = BackgroundJob.ContinueWith(facebookJobId, () => PostToInstagram(postMsg, picture));
 
 
-            return string.Format("{0},{1}", facebookJobId, instagramJobId);
+            return string.Format("{0}, {1}", facebookJobId, instagramJobId);
         }
 
         #endregion
 
         #region "Instagram"
-        public static void PostToInstagram(string Message, string PhotoUrl)
+        public static void PostToInstagram(string Message, string base64Image)
         {
             var uploader = new InstagramUploader(inst_page_id, ConvertToSecureString(inst_pass));
             uploader.InvalidLoginEvent += InvalidLoginEvent;
@@ -64,16 +66,11 @@ namespace Share.Social
 
             try
             {
-                // System.Web.HttpContext.Current.Server.MapPath
-                // System.AppDomain.CurrentDomain.BaseDirectory
-                string postImgaePath = HostingEnvironment.MapPath("~/public/images/65d77318-a2d8-42e5-bf81-9be1a51cf7ca.jpg");
-                //string postTitle = Message + "\r\n" + Link;
-
-                uploader.UploadImage(postImgaePath, Message);
+                uploader.UploadBase64Image(base64Image, Message);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                //error to log file
+
             }
         }
 
@@ -87,17 +84,14 @@ namespace Share.Social
             }
             return secureStr;
         }
-
         static void OnCompleteEvent(object sender, EventArgs e)
         {
-            // success
+            // success            
         }
-
         static void ErrorEvent(object sender, EventArgs e)
         {
             // error to log file
         }
-
         static void InvalidLoginEvent(object sender, EventArgs e)
         {
             // error to log file
@@ -137,8 +131,11 @@ namespace Share.Social
 
                 // fb post paramerters
                 dynamic parameters = new ExpandoObject();
-                parameters.subject = postMsg;
-                parameters.message = "Dar AlQima Fashion"; // picture caption
+                parameters.caption = "Dar AlQima Fashion";
+                parameters.message = postMsg; // picture caption
+                parameters.link = "https://www.instagr.am/daralqimafashionuae";
+
+                // we can add multiple image in one post
                 parameters.source = new FacebookMediaObject
                 {
                     ContentType = "image/jpeg",
