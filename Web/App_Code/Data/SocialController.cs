@@ -7,13 +7,19 @@ public class SocialController : ApiController
     //[ActionName("AddPost")]
     public string PostToAll([FromBody]SocialPostModel post)
     {
-        return SocialAutoPosting.PostingToAll(post.message, post.image);
+        return SocialAutoPosting.PostingToAll(post);
     }
 }
 
 // post model
 public class SocialPostModel
 {
-    public string message { get; set; }
-    public string image { get; set; }
+    public string Message { get; set; }
+    public string ImageBase64 { get; set; }
+    public bool FacebookActive { get; set; }
+    public bool InstagramActive { get; set; }
+    public string FacebookPostURL { get; set; }
+    public string FacebookToken { get; set; }
+    public string InstagramID { get; set; }    // ID
+    public string InstagramToken { get; set; } // Password
 }

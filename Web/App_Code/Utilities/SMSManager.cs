@@ -83,7 +83,7 @@ namespace Share.SMS
         {
 
             string url = "http://www.smartcall.ae/ClientAPIV3/submitXML.aspx";
-            StringBuilder xmlData = new StringBuilder("<?xml version='1.0' encoding='utf-8' ?>");
+            var xmlData = new StringBuilder("<?xml version='1.0' encoding='utf-8' ?>");
 
             xmlData.Append("<SMS>");
             xmlData.Append("<MobileNumber>" + mobileNo + "</MobileNumber>");
@@ -96,7 +96,7 @@ namespace Share.SMS
 
 
             var request = (HttpWebRequest)WebRequest.Create(url);
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(xmlData.ToString());
+            byte[] bytes = Encoding.UTF8.GetBytes(xmlData.ToString());
 
             request.ContentType = "text/xml; encoding='utf-8'";
             request.ContentLength = bytes.Length;
@@ -106,7 +106,7 @@ namespace Share.SMS
             requestStream.Write(bytes, 0, bytes.Length);
             requestStream.Close();
 
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -123,7 +123,7 @@ namespace Share.SMS
         static string InhanceMobileNo(string no)
         {
             var nombs = no.Split(',');
-            ArrayList list = new ArrayList();
+            var list = new ArrayList();
 
             foreach (var n in nombs)
             {

@@ -106,5 +106,17 @@
     "inputFiles": [
       "Scripts/datatable/Arabic.js"
     ]
+  },
+  {
+    "outputFileName": "Scripts/sys/settingsManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/settingsManager.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/addPost.min.js",
+    "inputFiles": [
+      "Scripts/sys/addPost.js"
+    ]
   }
 ]
