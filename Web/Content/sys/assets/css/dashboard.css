@@ -1,0 +1,140 @@
+﻿.tile-title {
+    color: white;
+    float: left;
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+.tile-title-70 {
+    margin-right: 70px
+}
+
+.tile-title-120 {
+    margin-right: 120px
+}
+
+.tile-title-100 {
+    margin-right: 100px
+}
+
+.tile-title-180 {
+    margin-right: 180px
+}
+
+.tile-title-80 {
+    margin-right: 80px
+}
+
+.tile-count {
+    color: white;
+    font-size: 1.1em;
+    float: right;
+    margin-top: 7px;
+    padding-right: 0.2em
+}
+
+.tile-ico {
+    font-size: 2em;
+    color: white;
+    padding-left: 0.3em;
+    margin-top: 7px;
+    float: left
+}
+
+.page {
+    width: auto;
+    height: auto;
+}
+
+.metr {
+    width: auto;
+    padding: 5px;
+    height: auto;
+    display: table;
+}
+
+
+.metrostyle {
+    height: 110px;
+    width: 150px;
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 2px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+    .metrostyle:hover,
+    .metrostyle:active,
+    .metrostyle.active,
+    .metrostyle:focus,
+    .metrostyle:active:focus,
+    .metrostyle.active:focus {
+        -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        opacity: 0.8;
+        -webkit-transition: all 0.15s ease-out; /* Chrome 1-25, Safari 3.2+ */
+        -moz-transition: all 0.15s ease-out; /* Firefox 4-15 */
+        -o-transition: all 0.15s ease-out; /* Opera 10.50–12.00 */
+        transition: all 0.15s ease-out;
+    }
+
+.metrostylelarge {
+    width: 260px;
+    height: 110px;
+}
+
+
+.orgmetro {
+    background-color: #603cba;
+}
+
+.ueemetro {
+    background-color: #a200ff;
+}
+
+.reemetro {
+    background-color: #f47835;
+}
+
+.eenmetro {
+    background-color: #d41243;
+}
+
+.boometro {
+    background-color: #8ec127;
+}
+
+.goometro {
+    background-color: #9f00a7;
+}
+
+.yoometro {
+    background-color: #00aba9;
+}
+
+.toometro {
+    background-color: #2d89ef;
+}
+
+.tilepink {
+    background-color: #e6437f;
+}
+
+.indigo {
+    background-color: #3949ab;
+}
+
+.tileblue {
+    background-color: #039be5;
+}
+
+.lightpurple {
+    background-color: #c55ee7;
+}
+
+.margin-left-45 {
+    margin-left: 45px;
+}

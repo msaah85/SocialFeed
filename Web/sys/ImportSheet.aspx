@@ -14,29 +14,27 @@
         <div class="page-header">
             <h1>Import contacts from Excel sheet</h1>
         </div>
-        <div class="row">
-            <form class="form-horizontal" role="form" id="masterForm" runat="server">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <asp:Literal ID="doneMessage" runat="server"></asp:Literal>
-                    </div>
+        <form class="form-horizontal" role="form" id="masterForm" runat="server">
+            <div class="row">
+                <div class="col-xs-12">
+                    <asp:Literal ID="doneMessage" runat="server"></asp:Literal>
                 </div>
-                <div class="row">
-                    <div class="col-xs-10">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="CityID">Select (*.xlsx) file <span class="text-danger">*</span></label>
-                            <div class="col-sm-5">
-                                <asp:FileUpload ID="Upload" runat="server" />
-                            </div>
-                            <div class="col-sm-3">
-                                <asp:LinkButton CssClass="btn btn-sm btn-info" ID="btnImport" runat="server"><i class="fa fa-upload"></i> Upload</asp:LinkButton>
-                                <a href="SendSMS.aspx" class="btn btn-sm btn-success">Send SMS <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="CityID">Select (*.xlsx) file <span class="text-danger">*</span></label>
+                        <div class="col-sm-5">
+                            <asp:FileUpload ID="Upload" runat="server" />
+                        </div>
+                        <div class="col-sm-3">
+                            <asp:LinkButton CssClass="btn btn-sm btn-info" ID="btnImport" runat="server"><i class="fa fa-upload"></i> Upload</asp:LinkButton>
+                            <a href="SendSMS.aspx" class="btn btn-sm btn-success">Send SMS <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
     <script>
         jQuery(function ($) {

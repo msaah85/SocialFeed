@@ -125,12 +125,12 @@
                             <span class="btn-toolbar inline middle no-margin" id="Lang">
                                 <span id="chosen-multiple-style" data-toggle="buttons" class="btn-group no-margin">
                                     <label class="btn btn-xs btn-yellow active">
-                                        English
-                                        <input type="radio" name="Lang" value="0" />
-                                    </label>
-                                    <label class="btn btn-xs btn-yellow">
                                         Arabic
                                         <input type="radio" name="Lang" value="1" />
+                                    </label>
+                                    <label class="btn btn-xs btn-yellow">
+                                        English
+                                        <input type="radio" name="Lang" value="0" />
                                     </label>
                                 </span>
                             </span>
@@ -151,6 +151,6 @@
     <script src="/Scripts/sys/utilities.min.js"></script>
     <script src="/Content/sys/assets/js/autosize.min.js"></script>
     <script src="/Content/sys/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script src="/Scripts/sys/sendSMS.js?v=1.8"></script>
+    <script src="/Scripts/sys/sendSMS.min.js?v=1.2"></script>
     <script>pageManager.Init();</script>
 </asp:Content>

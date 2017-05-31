@@ -1,50 +1,34 @@
-﻿
+﻿using IraqCars.Business.Business;
 using Share.SMS;
-using System.Collections.Generic;
 using System.Web.Http;
+using System.Xml;
 
 public class SMSController : ApiController
 {
-    public object SendSMS(string phones, string message)
+    [ActionName("SMSToGroup")]
+    public object PostBulkSMS(SMSMessage message)
     {
-        var task = SMSManager.SMSSend(phones, message);
-        return task;
-    }
-
-    public object BulkSMS(string[] nums, string msg, int enAr)
-    {
-        // collect all sending reports    
-        var isSent = new List<string>();
+        // send sms message
+        var res = SMSManager.SMSXml(message);
 
 
-        // loop all messages
-        for (int i = 0; i < nums.Length; i++)
+        // save to db
+        var resultXML = new XmlDocument();
+        resultXML.LoadXml(res.Result);
+        
+        string msgStatus = resultXML.SelectSingleNode("Response/Status").InnerText,
+            msgID = resultXML.SelectSingleNode("Response/msgid").InnerText;
+
+        // check the sms has been sent.
+        if (!msgStatus.Equals("error") && !string.IsNullOrEmpty(msgID))
         {
-            // split mobile and client name
-            string[] num = nums[i].Split('|');
+            string[] names = { "SMSID", "Message", "Numbers", "Sent", "NumbersCount", "MsgID" },
+                values = { "0", message.Message, message.MobileNo, "1", string.Format("{0}", message.MobileNo.Split(',').Length), msgID };
 
-            // start sending the message to one or more mobile number
-            //                                     phone   message
-            var sent = SMSManager.SMSSend(num[0], msg, enAr);
-
-
-            // register sending report for every sms/client name.
-            isSent.Add(sent.Result + "|" + num[1]);
+            var saved = new Save().SaveRow("SMS_Save", names, values);
         }
 
 
-        // return all reports
-        return isSent;
-    }
-
-    public object BulkSMS3(string nums, string msg, int enAr)
-    {
-        // start sending the message to one or more mobile number
-        //                                    phone numbers  message  Unicode
-        var sent = SMSManager.SMSXml(nums, msg, enAr);
-
-
-        // return all reports
-        return sent;
+        return res.Result;
     }
 }

@@ -41,37 +41,5 @@ public partial class sys_Default : Page
         }
 
         return login_state;
-    }
-
-    [WebMethod]
-    public static bool SendEmail(string Email)
-    {
-        bool Send_state = false;
-        // create filter paramters
-        string[,] _params = { { "Email", Email } };
-
-        // get all of data.
-        var _ds = new Select().SelectLists("[Send_Email]", _params);
-
-        var dt = _ds.Tables[0];
-        if (dt.Rows.Count > 0)
-        {
-            try
-            {
-
-                string body = "User Name:" + dt.Rows[0][0].ToString() + "Password:" + dt.Rows[0][1].ToString();
-                SendEmail snemail = new SendEmail();
-                snemail.SendAnEmail2("noreplay@admin.com", Email, "Login Information", body);
-
-                Send_state = true;
-            }
-            catch //(Exception ex)
-            {
-                Send_state = false;
-
-            }
-        }
-
-        return Send_state;
-    }
+    }    
 }

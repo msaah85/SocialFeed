@@ -3,7 +3,6 @@ using Hangfire;
 using InstaSharp;
 using System;
 using System.Dynamic;
-using System.IO;
 using System.Security;
 using TweetSharp;
 
@@ -41,7 +40,7 @@ namespace Share.Social
         #endregion
 
         #region "Instagram"
-        static void PostToInstagram(string Message, string base64Image, string inst_page_id, string inst_pass)
+        public static void PostToInstagram(string Message, string base64Image, string inst_page_id, string inst_pass)
         {
             var uploader = new InstagramUploader(inst_page_id, ConvertToSecureString(inst_pass));
             uploader.InvalidLoginEvent += InvalidLoginEvent;
@@ -100,8 +99,7 @@ namespace Share.Social
         #endregion
 
         #region "Facebook"
-        static void PostToFB(string postMsg, string picture, string fb_token, string fb_post_url, string externalLink)
-
+        public static void PostToFB(string postMsg, string picture, string fb_post_url, string fb_token, string externalLink)
         {
             #region "Post to Fan Page"
             try
@@ -118,7 +116,7 @@ namespace Share.Social
                 parameters.source = new FacebookMediaObject
                 {
                     ContentType = "image/jpeg",
-                    FileName = Path.GetFileName(picture)
+                    FileName = Guid.NewGuid().ToString()
                 }.SetValue(Convert.FromBase64String(picture));
 
                 //parameters.source = new FacebookMediaObject

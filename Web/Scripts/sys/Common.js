@@ -151,18 +151,17 @@ var commonManger = function () {
             else { ParamNames.push(pKey); }
 
 
-            var DTO = { actionName: ActionName, names: ParamNames, values: ParamValues };
-            modalDialog = $('#' + modalDialog);
-
-
-            dataService.callAjax('POST', JSON.stringify(DTO), sUrl + 'SaveData',
-                function (data) {
+            var DTO = { actionName: ActionName, names: ParamNames, values: ParamValues },
+                successCallBck = function (data) {
                     $(modalDialog).modal('hide');
                     if (data.Status) // show success message if done.
                         success(data);
                     else // show error message
                         showMessage('خطأ بالحذف:', 'خطأ أثناء الحذف ' + data.message);
-                }, errorException);
+                };
+            
+            modalDialog = $('#' + modalDialog);
+            dataService.callAjax('POST', JSON.stringify(DTO), sUrl + 'SaveData', successCallBck, errorException);
         },
         deleteData = function (modalDialog, success, error, tableName, pKey, value) {
             var paramValues = [], paramNames = [], actionName = tableName + "_Delete";
@@ -506,9 +505,9 @@ var commonManger = function () {
         prepareData2Grid = function (dataT, aoDatasEcho, funcCallback) {
             var jsnData = decompressXMLData(dataT),
                 aaData = jsnData.list, jsn1 = jsnData.list1;
-            
+
             jsn1 = jsn1 ? $.map(jsn1, function (el) { return el }) : [0];
-            
+
             // create obejct for datatables control
             var objDT = {
                 sEcho: aoDatasEcho ? aoDatasEcho : 0,

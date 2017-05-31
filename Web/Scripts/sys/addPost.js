@@ -90,7 +90,9 @@ var newPostManager = newPostManager || {},
 
                     };
 
-                dataService.callAjax('GET', data, uRL, settingCallBack, commonManger.errorException);
+
+                dataService.callAjax('GET', data, uRL, settingCallBack,
+                    commonManger.errorException);
             },
             getImageName = function () {
                 var nme = $('input[type=file]').eq(0).val().replace(/.*(\/|\\)/, '');
@@ -103,43 +105,40 @@ var newPostManager = newPostManager || {},
                     },
                     data = { Name: imgStr };
 
-
                 dataService.callAjax('POST', JSON.stringify(data), uRL,
                     uploadCallBack, commonManger.errorException);
             },
             potingToSocial = function () {
-                var post = {
-                    uRL: '/api/social/posttoall',
-                    img: $('span.ace-file-name.large img'),
-                    fbCtrl: $('.so-options:eq(0)'),
-                    insCtrl: $('.so-options:eq(1)'),
+                var
+                    post = {
+                        uRL: '/api/social/posttoall',
+                        img: $('span.ace-file-name.large').data('src'),
+                        fbCtrl: $('.so-options:eq(0)'),
+                        insCtrl: $('.so-options:eq(1)'),
 
-                    // avialable social pages checked
-                    fbActive() { return this.fbCtrl.find('input[type="checkbox"]').is(':checked') ? true : false; },
-                    insActive() { return this.insCtrl.find('input[type="checkbox"]').is(':checked') ? true : false; },
+                        // avialable social pages checked
+                        fbActive() { return this.fbCtrl.find('input[type="checkbox"]').is(':checked') ? true : false; },
+                        insActive() { return this.insCtrl.find('input[type="checkbox"]').is(':checked') ? true : false; },
 
-                    fbPostUrl() { return this.fbCtrl.data('url'); },
-                    fbToken() { return this.fbCtrl.data('token'); },
+                        fbPostUrl() { return this.fbCtrl.data('url'); },
+                        fbToken() { return this.fbCtrl.data('token'); },
 
-                    insID() { return this.insCtrl.data('url'); },
-                    insToken() { return this.insCtrl.data('token'); },
+                        insID() { return this.insCtrl.data('url'); },
+                        insToken() { return this.insCtrl.data('token'); },
 
-                    msg: $('#message').val(),
-                    imageBase64() { // cut base64 image string.
-                        var _imgStr = this.img.length ? this.img.attr('style') : '',
-                            startIndex = _imgStr.indexOf(';base64,') || 0,
-                            endIndex = _imgStr.indexOf('")') || 0;
-
-                        return _imgStr.length > 10 ? _imgStr.substring(startIndex + 8, endIndex) : '';
+                        msg: $('#message').val(),
+                        imageBase64() { // cut base64 image string.
+                            var _imgStr = this.img && this.img.length ? this.img.split(',')[1] : '';
+                            return _imgStr;
+                        },
+                        showMessage: function (typeID, message) {
+                            var _msg = '<div class="alert alert-' + (typeID > 1 ? 'danger' : 'success') + '">' + message + '</div>';
+                            $('.message').html(_msg);
+                        },
+                        postedSocialCallBack: function (d) {
+                            post.showMessage(1, 'This post has been added to your social page.');
+                        }
                     },
-                    showMessage: function (typeID, message) {
-                        var _msg = '<div class="alert alert-' + (typeID > 1 ? 'danger' : 'success') + '">' + message + '</div>';
-                        $('.message').html(_msg);
-                    },
-                    postedSocialCallBack: function (d) {
-                        showMessage(1, 'This post has been added to your social page.');
-                    }
-                },
                     _data = {
                         Message: post.msg,
                         ImageBase64: post.imageBase64(),
@@ -152,7 +151,6 @@ var newPostManager = newPostManager || {},
                     };
 
 
-                console.log(_data);
 
                 //validation
                 if (_data.ImageBase64.length < 5) {
@@ -171,10 +169,20 @@ var newPostManager = newPostManager || {},
                     return;
                 }
 
+
                 // get data
-                dataService.callAjax('POST', JSON.stringify(_data), post.uRL, post.postedSocialCallBack, commonManger.errorException);
+                dataService.callAjax('POST', JSON.stringify(_data), post.uRL,
+                    post.postedSocialCallBack, commonManger.errorException);
             },
             pageEvents = function () {
+                // start post to all pages
+                $('#SendAll').click(function (e) {
+                    e.preventDefault();
+                    potingToSocial();
+
+                });
+
+                // image selection
                 $('#image').ace_file_input({
                     style: 'well',
                     btn_choose: 'Drop image here or click to choose',
@@ -193,14 +201,13 @@ var newPostManager = newPostManager || {},
                                 _file = files[i],
                                 _img = new Image();
 
-
                             _img.onload = function () {
                                 if (!_img || (_img.height < 200 && _img.width < 200)) {
                                     commonManger.showMessage('Too small !!!', `The image (${_file.name}) is too small, please select a large image.`);
                                     $('.ace-file-input a.remove').trigger('click'); // remove the selected image
                                     validImg = false;
                                 }
-                            }                            
+                            }
                             _img.src = URL.createObjectURL(_file);
                         }
 
@@ -219,6 +226,22 @@ var newPostManager = newPostManager || {},
                         //alert(error_code);
                     }
                 }).on('change', function () {
+                    var _this = $(this)[0],
+                        images = _this.files,
+                        image = images ? images[0] : null;
+
+                    if (image) {
+                        var reader = new FileReader();
+                        reader.onloadend = function () {
+                            var $imgg = $('span.ace-file-name');
+                            if ($imgg)
+                                $imgg.data('src', reader.result);
+
+                        }
+                        reader.readAsDataURL(image);
+                    }
+
+
                     //var _this = $(this)[0],
                     //    images = _this.files,
                     //    //imgsCount = images ? images.length : 0,
@@ -231,15 +254,6 @@ var newPostManager = newPostManager || {},
                     //    return;
                     //}
                 });
-
-                // events
-                // start post to all pages
-                $('#SendAll').click(function (e) {
-                    e.preventDefault();
-                    potingToSocial();
-
-                });
-
             };
 
         return {

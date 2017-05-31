@@ -109,7 +109,7 @@
                 <li>
                     <a href="sendsms">
                         <i class="menu-icon fa fa-envelope-o"></i>
-                        <span class="menu-text">Send SMS </span>
+                        <span class="menu-text">Send SMS</span>
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -117,6 +117,13 @@
                     <a href="ImportSheet">
                         <i class="menu-icon fa fa-cloud-upload"></i>
                         <span class="menu-text">Upload contacts</span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li>
+                    <a href="SMSReport">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text">SMS List</span>
                     </a>
                     <b class="arrow"></b>
                 </li>
@@ -148,13 +155,13 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
-                <!--<li>
+                <li>
                     <a href="Social/Posts">
                         <span class="menu-icon glyphicon glyphicon-retweet"></span>
                         <span class="menu-text">Posts</span>
                     </a>
                     <b class="arrow"></b>
-                </li>-->
+                </li>
                 <li>
                     <a href="Settings">
                         <i class="menu-icon ace-icon fa fa-cogs"></i>
@@ -175,17 +182,17 @@
         <div class="footer">
             <div class="footer-inner">
                 <div class="footer-content">
-                    <span class="bigger-120">
-                        <span class="blue bolder">SMS</span>
-                        Sys &copy; <%: DateTime.Now.Year %>
+                    <span class="bigger-120">&copy; <%: DateTime.Now.Year %>
+                        <span class="blue bolder">SMS & Social</span>
+                        Dar AlQimah
                     </span>
                     &nbsp; &nbsp;
                         <span class="action-buttons">
-                            <a href="https://fb.com/sharewebdesigndotcom" target="_blank">
+                            <a href="https://fb.com/daralqimahfashion/" target="_blank">
                                 <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
                             </a>
-                            <a href="http://share-web-design.com" target="_blank" class="footer-copyright-logo">
-                                <img src="/Content/sys/assets/images/share-web-design.gif" />
+                            <a href="https://instagr.am/daralqimahfashion/" target="_blank" class="footer-copyright-logo">
+                                <i class="ace-icon fa fa-instagram text-danger bigger-150"></i>
                             </a>
                         </span>
                 </div>
@@ -225,6 +232,7 @@
     <script src="/Content/sys/assets/js/ace/ace.settings.min.js"></script>
     <script src="/Content/sys/assets/js/ace/ace.settings-rtl.min.js"></script>
     <script src="/Content/sys/assets/js/ace/ace.settings-skin.min.js"></script>
+    <script src="/Content/sys/assets/js/autosize.min.js"></script>
     <script type="text/javascript">
                 jQuery(function ($) {
                     $('[data-rel="tooltip"]').tooltip();

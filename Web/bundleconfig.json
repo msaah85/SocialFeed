@@ -118,5 +118,17 @@
     "inputFiles": [
       "Scripts/sys/addPost.js"
     ]
+  },
+  {
+    "outputFileName": "Content/sys/assets/css/dashboard.min.css",
+    "inputFiles": [
+      "Content/sys/assets/css/dashboard.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/dashboard.min.js",
+    "inputFiles": [
+      "Scripts/sys/dashboard.js"
+    ]
   }
 ]

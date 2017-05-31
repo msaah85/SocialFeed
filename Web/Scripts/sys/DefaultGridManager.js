@@ -146,7 +146,10 @@ var DefaultGridManager = DefaultGridManager || {},
                         }
                         else if (self.hasClass('remove')) {
                             aData = oTable.row(pos).data();
-                            var title = " Delete " + TitlePage, peration = 'delete', ParamNames = [], _id = "";
+                            var title = " Delete " + TitlePage,
+                                peration = 'delete',
+                                ParamNames = [], _id = "";
+
                             if (pKey.toLowerCase().indexOf(",") >= 0) {
                                 ParamNames = pKey.split(",");
                                 for (var i = 0; i < ParamNames.length - 1; i++) {
@@ -192,11 +195,8 @@ var DefaultGridManager = DefaultGridManager || {},
 
                         // loop on lists count
                         for (var i = 0; i < dataCount; i++) {
-
                             var listName = 'list' + (i > 0 ? i : ''),
                                 controlOnForm = $("#" + formName + ' select:eq(' + i + ')'); //.attr('id');
-
-
                             bindControlData(controlOnForm, allData[listName]);
                         }
                     };
