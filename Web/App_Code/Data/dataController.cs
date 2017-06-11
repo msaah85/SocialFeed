@@ -31,20 +31,7 @@ public class DataController : ApiController
 
         // get all of data.
         var _ds = new Select().SelectLists(Context.Request["funName"], _params);
-        return LZString.CompressToUTF16(_ds.GetXml());
-
-        // enhance data to be list.
-        //var rows = DataUtilities.ConvertDTToList(_ds.Tables[0]);
-
-        //var data = new
-        //{
-        //    sEcho = param.sEcho,
-        //    iTotalRecords = _ds.Tables[1].Rows[0][0],
-        //    iTotalDisplayRecords = _ds.Tables[1].Rows[0][0],
-        //    aaData = rows.ToList()
-        //};
-
-        //return data;
+        return LZString.CompressToUTF16(_ds.GetXml());        
     }
 
     [ActionName("GetData")]

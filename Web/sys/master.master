@@ -233,27 +233,7 @@
     <script src="/Content/sys/assets/js/ace/ace.settings-rtl.min.js"></script>
     <script src="/Content/sys/assets/js/ace/ace.settings-skin.min.js"></script>
     <script src="/Content/sys/assets/js/autosize.min.js"></script>
-    <script type="text/javascript">
-                jQuery(function ($) {
-                    $('[data-rel="tooltip"]').tooltip();
-                    $('[data-rel=popover]').popover({ container: 'body' });
-                    autosize($('textarea[class*=autosize]'));
-                    $('.show-details-btn').on('click', function (e) {
-                        e.preventDefault();
-                        $(this).closest('tr').next().toggleClass('open');
-                        $(this).find(ace.vars['.icon']).toggleClass('fa-angle-double-down').toggleClass('fa-angle-double-up');
-                    });
-                    $('.date-picker').datepicker({
-                        autoclose: true,
-                        todayHighlight: true
-                    });
-                    $('.today').datepicker('setDate', new Date());
-                });
-                var setNavigation = function () {
-                    var path = location.href.toLowerCase().replace(/\/$/, ""); path = decodeURIComponent(path); $('.nav-list li.active').removeClass('active'); $("#sidebar ul.nav-list a").each(function () { var href = $(this).attr('href').toLowerCase(); if (path.indexOf(href) > -1) { $(this).closest('li').addClass('active').parent().parent().addClass("active open"); } });
-                }
-                setNavigation();
-    </script>
+    <script src="/Scripts/sys/masterManager.min.js"></script>
     <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder2" />
 </body>
 </html>

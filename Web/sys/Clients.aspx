@@ -164,7 +164,6 @@
             </div>
         </div>
     </div>
-
     <script src="/Scripts/sys/DefaultGridManager.min.js?v=1.2"></script>
     <script src="/Scripts/sys/numeral.min.js"></script>
     <script src="/Scripts/sys/clientsManager.min.js?v=1.1"></script>

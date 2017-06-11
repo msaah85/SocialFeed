@@ -33,16 +33,10 @@
                 <h2><i class="fa fa-facebook-square"></i>
                     Facebook</h2>
                 <div class="fb-page" data-href="https://www.facebook.com/<%:fbPage.Value %>/" data-tabs="timeline" data-width="600" data-height="600" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
-                    <blockquote cite="https://www.facebook.com/<%:fbPage.Value %>/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/<%:fbPage.Value %>/">‎دار القمة للأزياء - Dar Al Qimah Fashion‎</a></blockquote>
+                    <blockquote cite="https://www.facebook.com/<%:fbPage.Value %>/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/<%:fbPage.Value %>/"><i class="fa fa-facebook-f"></i>‎</a></blockquote>
                 </div>
                 <div id="fb-root"></div>
-                <script>(function (d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                        js = d.createElement(s); js.id = id;
-                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1325657324155147";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
+                <script src="/scripts/fb.min.js"></script>
             </div>
         </div>
     </div>

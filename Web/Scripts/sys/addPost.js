@@ -1,17 +1,6 @@
 ﻿/// <reference path="common.js" />
 /// <reference path="DataService.js" />
 
-
-String.prototype.format = function () {
-    var str = this;
-    for (var i = 0; i < arguments.length; i++) {
-        var reg = new RegExp("\\{" + i + "\\}", "gm");
-        str = str.replace(reg, arguments[i]);
-    }
-    return str;
-}
-
-
 var newPostManager = newPostManager || {},
     newPostManager = function () {
         var
@@ -181,7 +170,7 @@ var newPostManager = newPostManager || {},
                     potingToSocial();
 
                 });
-
+                                
                 // image selection
                 $('#image').ace_file_input({
                     style: 'well',
@@ -257,10 +246,10 @@ var newPostManager = newPostManager || {},
             };
 
         return {
-            init: init
+            Init: init
         };
 
     }();
 
 
-newPostManager.init();
+newPostManager.Init();

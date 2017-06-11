@@ -75,5 +75,5 @@
     <script src="/Scripts/sys/DefaultGridManager.min.js"></script>
     <script src="/Scripts/sys/utilities.min.js"></script>
     <script src="/Content/sys/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script src="/Scripts/sys/addPost.min.js?v=1.4"></script>
+    <script src="/Scripts/sys/addPost.js?v=1.6"></script>
 </asp:Content>

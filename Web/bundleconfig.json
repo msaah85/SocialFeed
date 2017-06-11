@@ -130,5 +130,29 @@
     "inputFiles": [
       "Scripts/sys/dashboard.js"
     ]
+  },
+  {
+    "outputFileName": "Scripts/sys/usersManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/usersManager.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/masterManager.min.js",
+    "inputFiles": [
+      "Scripts/sys/masterManager.js"
+    ]
+  },
+  {
+    "outputFileName": "sys/Social/fb.min.js",
+    "inputFiles": [
+      "sys/Social/fb.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sys/excelFileUtil.min.js",
+    "inputFiles": [
+      "Scripts/sys/excelFileUtil.js"
+    ]
   }
 ]
