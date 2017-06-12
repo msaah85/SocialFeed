@@ -11,20 +11,28 @@ public partial class sys_ImportSheet : System.Web.UI.Page
     {
         if (IsPostBack && Upload.HasFile)
         {
-            if (Path.GetExtension(Upload.FileName).Equals(".xlsx"))
+            UploadSheet();
+        }
+    }
+
+    void UploadSheet()
+    {
+        if (Path.GetExtension(Upload.FileName).Equals(".xlsx"))
+        {
+            var excel = new ExcelPackage(Upload.FileContent);
+            var dt = excel.ToDataTable();
+            string table = "Contacts";
+
+            using (var conn = new SqlConnection(Config.connString))
             {
-                var excel = new ExcelPackage(Upload.FileContent);
-                var dt = excel.ToDataTable();
-                string table = "Contacts";
+                // fire triggers that help merge contacts.
+                var bulkCopy = new SqlBulkCopy(conn.ConnectionString, SqlBulkCopyOptions.FireTriggers);
+                bulkCopy.DestinationTableName = table;
+                conn.Open();
+                var schema = conn.GetSchema("Columns", new[] { null, null, table, null });
 
-                using (var conn = new SqlConnection(Config.connString))
+                try
                 {
-                    // fire triggers that help merge contacts.
-                    var bulkCopy = new SqlBulkCopy(conn.ConnectionString, SqlBulkCopyOptions.FireTriggers);
-                    bulkCopy.DestinationTableName = table;
-                    conn.Open();
-                    var schema = conn.GetSchema("Columns", new[] { null, null, table, null });
-
                     foreach (DataColumn sourceColumn in dt.Columns)
                     {
                         foreach (DataRow row in schema.Rows)
@@ -36,22 +44,19 @@ public partial class sys_ImportSheet : System.Web.UI.Page
                             }
                         }
                     }
-
-                    try
-                    {
-                        bulkCopy.WriteToServerAsync(dt);
-                        doneMessage.Text = "<div class='alert alert-block alert-success'>Data has been imported to clients list, start <a href='sendsms.aspx' class='bolder'>sending SMS</a> now.</div>";
-                    }
-                    catch (Exception ex)
-                    {
-                        doneMessage.Text = "<div class='alert alert-block alert-warning'>Error uploading file: " + ex.Message + ", Please contact system administrator.</div>";
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
-
+                    
+                    bulkCopy.WriteToServerAsync(dt);
+                    doneMessage.Text = "<div class='alert alert-block alert-success'>Data has been imported to clients list, start <a href='sendsms.aspx' class='bolder'>sending SMS</a> now.</div>";
                 }
+                catch (Exception ex)
+                {
+                    doneMessage.Text = "<div class='alert alert-block alert-warning'>Error uploading file: " + ex.Message + ", Please contact system administrator.</div>";
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
             }
         }
     }
