@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Clients" Language="C#" MasterPageFile="master.master" AutoEventWireup="true" EnableTheming="false" EnableViewState="false" ViewStateMode="Disabled" EnableSessionState="ReadOnly" %>
+﻿<%@ Page Title="Contacts" Language="C#" MasterPageFile="master.master" AutoEventWireup="true" EnableTheming="false" EnableViewState="false" ViewStateMode="Disabled" EnableSessionState="ReadOnly" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="/Scripts/sys/Common.min.js"></script>
@@ -15,28 +15,33 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="home">Home</a>
             </li>
-            <li class="active">Clients</li>
+            <li class="active">Contacts</li>
         </ul>
     </div>
     <div class="page-content">
         <div class="page-header">
-            <h1>Clients Manager</h1>
+            <h1>Contacts Manager</h1>
         </div>
         <div class="row">
             <div class="col-xs-12 widget-container-col">
                 <div class="clearfix">
+                    <a role="button" class="btn btn-white btn-default btn-bold" href="ImportSheet.aspx"
+                        tabindex="0" title="Upload Contacts"><i class="fa fa-upload bigger-110"></i>
+                        Upload Excel</a>
+                    <a role="button" class="btn btn-white btn-primary btn-bold" href="SendSMS.aspx"
+                        tabindex="0" title="Send SMS"><i class="fa fa-send bigger-110"></i>
+                        Send SMS</a>
                     <a role="button" href="#addModal" data-toggle="modal" class="btn btn-white btn-warning btn-bold"
-                        tabindex="0" title="Add new"><i class="fa fa-plus bigger-110"></i>Add new</a>
+                        tabindex="0" title="Add new contact"><i class="fa fa-plus bigger-110"></i>
+                        Add contact</a>
                     <div class="pull-right tableTools-container"></div>
                 </div>
-
                 <div class="widget-box widget-color-blue" id="widget-box-2">
                     <div class="widget-header">
                         <h5 class="widget-title bigger lighter">
                             <i class="ace-icon fa fa-table"></i>
                             Clients List
                         </h5>
-
                         <div class="widget-toolbar">
                             <a href="#" data-action="fullscreen" class="white">
                                 <i class="1 ace-icon fa fa-expand bigger-125"></i>

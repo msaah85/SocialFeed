@@ -67,7 +67,7 @@ public static class ExcelPackageExtensions
     public static DataTable ToDataTable(this ExcelPackage package)
     {
         ExcelWorksheet workSheet = package.Workbook.Worksheets.First();
-        DataTable table = new DataTable();
+        var table = new DataTable();
         foreach (var firstRowCell in workSheet.Cells[1, 1, 1, workSheet.Dimension.End.Column])
         {
             table.Columns.Add(firstRowCell.Text);

@@ -1,11 +1,17 @@
 <%@ Page Title="Send SMS" Language="C#" MasterPageFile="master.master" AutoEventWireup="true" CodeFile="SendSMS.aspx.cs" Inherits="sys_SendSMS" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link href="/Content/sys/assets/css/chosen.min.css" rel="stylesheet" />
     <script src="/Scripts/sys/Common.min.js"></script>
     <script src="/Scripts/sys/DataService.min.js"></script>
     <script src="/Scripts/sys/DefaultGridVariables.min.js"></script>
     <script src="/content/sys/assets/js/jquery.validate.min.js"></script>
     <script src="/content/sys/assets/js/additional-methods.min.js"></script>
+    <style>
+        .chosen-container {
+            line-height: 32px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -28,14 +34,14 @@
                         <label class="col-sm-3 control-label no-padding-right" for="CityID">Choose a city <span class="text-danger">*</span></label>
                         <div class="col-sm-7">
                             <input type="hidden" id="SMSID" value="0" />
-                            <select id="CityID" name="CityID" class="required form-control" required data-placeholder="Choose a city...">
-                                <option value="0">--- Select City ---</option>
+                            <select multiple id="CityID" name="CityID" class="required chosen-select form-control tag-input-style" required data-placeholder="Choose a city...">
                                 <option value="-1">--- All Cities ---</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            <a href="ImportSheet.aspx" class="btn btn-sm btn-info"><i class="fa fa-upload"></i>
-                                More contacts</a>
+                            <a role="button" data-rel="tooltip" class="btn btn-white btn-primary btn-bold" href="Clients.aspx"
+                                tabindex="0" title="Add contact"><i class="fa fa-plus bigger-110"></i></a>
+                            <a data-rel="tooltip" href="ImportSheet.aspx" class="btn btn-info btn-white btn-bold" title="Upload excel contacts"><i class="fa fa-upload"></i></a>
                         </div>
                     </div>
                 </div>
@@ -58,7 +64,7 @@
                         <div class="widget-toolbar no-border">
                             <button class="btn btn-xs bigger btn-yellow dropdown-toggle" data-toggle="dropdown">
                                 Select
-                                                <i class="ace-icon fa fa-chevron-down icon-on-right"></i>
+                                <i class="ace-icon fa fa-chevron-down icon-on-right"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                 <li>
@@ -108,7 +114,7 @@
         </div>
         <hr class="hr-10" />
         <div class="row">
-            <form class="form-horizontal" role="form" id="aspnetForm">
+            <form class="form-horizontal hidden" role="form" id="aspnetForm">
                 <div class="col-xs-12 col-md-1"></div>
                 <div class="col-xs-12 col-md-8">
                     <div class="form-group">

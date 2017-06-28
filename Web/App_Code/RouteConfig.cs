@@ -2,8 +2,6 @@
 using System.Web.Routing;
 using Microsoft.AspNet.FriendlyUrls;
 using System.Web.Http;
-using System.Web.UI;
-using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
 namespace Shared.Marketing.Web
 {
@@ -34,20 +32,22 @@ namespace Shared.Marketing.Web
 
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
-            routes.EnableFriendlyUrls(settings, new BugFixFriendlyUrlResolver());
+            routes.EnableFriendlyUrls(settings);
+
+            //routes.EnableFriendlyUrls(settings, new BugFixFriendlyUrlResolver());
         }
     }
 
-    /// <summary>
-    /// This is a hack to force no mobile URL resolution in FriendlyUrls.  There's some kind of bug in the current version that
-    /// causes it to do an internal failed resolve of a mobile master even though there is none.
-    /// </summary>
-    public class BugFixFriendlyUrlResolver : WebFormsFriendlyUrlResolver
-    {
-        protected override bool TrySetMobileMasterPage(HttpContextBase httpContext, Page page, string mobileSuffix)
-        {
-            return false;
-            //return base.TrySetMobileMasterPage(httpContext, page, mobileSuffix);
-        }
-    }
+    ///// <summary>
+    ///// This is a hack to force no mobile URL resolution in FriendlyUrls.  There's some kind of bug in the current version that
+    ///// causes it to do an internal failed resolve of a mobile master even though there is none.
+    ///// </summary>
+    //public class BugFixFriendlyUrlResolver : WebFormsFriendlyUrlResolver
+    //{
+    //    protected override bool TrySetMobileMasterPage(HttpContextBase httpContext, Page page, string mobileSuffix)
+    //    {
+    //        return false;
+    //        //return base.TrySetMobileMasterPage(httpContext, page, mobileSuffix);
+    //    }
+    //}
 }

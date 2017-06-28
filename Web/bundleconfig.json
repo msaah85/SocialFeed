@@ -154,5 +154,17 @@
     "inputFiles": [
       "Scripts/sys/excelFileUtil.js"
     ]
+  },
+  {
+    "outputFileName": "Content/sys/assets/css/chosen.min.css",
+    "inputFiles": [
+      "Content/sys/assets/css/chosen.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/sys/assets/css/pace.min.css",
+    "inputFiles": [
+      "Content/sys/assets/css/pace.css"
+    ]
   }
 ]

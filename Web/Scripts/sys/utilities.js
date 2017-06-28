@@ -59,8 +59,7 @@ var
 
                 // return a series numbers as a string.
                 return allMobilesStr.join(',');
-            },
-           ;
+            };
 
         return {
             Init: init,

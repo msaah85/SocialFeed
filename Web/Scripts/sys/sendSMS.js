@@ -6,19 +6,19 @@
 var pageManager = pageManager || {};
 pageManager = function () {
     var
-        Init = function Init() {
+        Init = function () {
             tableName = 'Clients';
             smsProperties();
 
             // events handler
             pageEvents();
         },
-        smsProperties = function smsProperties() {
+        smsProperties = function () {
             var url = sUrl + 'GetDataDirect',
                 obj = { actionName: 'SMS_Properties' },
 
                 // bind data to controk on the form
-                bindControlData = function bindControlData(controlID, data) {
+                bindControlData = function (controlID, data) {
                     // select options
                     var options = $(data).map(function (i, v) {
                         var vKeys = Object.keys(v); // optionID, optionText
@@ -26,10 +26,13 @@ pageManager = function () {
                     }).get();
                     // append options to select control
                     $(controlID).append(options);
+
+
+                    $(controlID).chosen();
                 },
 
                 // handle returned data
-                successCall = function successCall(data) {
+                successCall = function (data) {
                     // json format
                     var allData = commonManger.decoData(data),
                         cities = allData.list,
@@ -53,9 +56,12 @@ pageManager = function () {
             // featch data
             dataService.callAjax('GET', obj, url, successCall, commonManger.errorException);
         },
-        pageEvents = function pageEvents(cityID) {
+        pageEvents = function pageEvents() {
             $('#CityID').change(function () {
                 var cityId = $(this).val();
+
+                cityId = (cityId != null && cityId.length > 1) ? cityId.join(',') : cityId;
+
                 getClients(cityId);
             });
 
@@ -78,10 +84,10 @@ pageManager = function () {
                     },
 
                     // show success/fail message
-                    successSendCall = function successSendCall(data) {                        
-                        
+                    successSendCall = function successSendCall(data) {
+
                         var jsnResult = commonManger.jsnFromXML(data);
-                        
+
                         if (jsnResult && jsnResult.Status === 'OK')
                             commonManger.showMessage('Success!:', jsnResult.Status + ' Your Message Queued for Delivery.');
                         else
@@ -214,10 +220,12 @@ pageManager = function () {
         },
         getClients = function getClients(cityID) {
             formName = 'aspnetForm';
-            var prm = {
-                actionName: tableName + '_ListByCity',
-                value: cityID
-            },
+
+            var
+                prm = {
+                    actionName: tableName + '_ListByCity',
+                    value: cityID
+                },
                 showClientsList = function showClientsList(data) {
 
                     data = commonManger.decoData(data);
@@ -235,6 +243,8 @@ pageManager = function () {
                         $('#' + gridId + ' tbody').html('');
                     }
                 };
+
+
 
             dataService.callAjax('GET', prm, sUrl + 'getdata', showClientsList, commonManger.errorException);
         };

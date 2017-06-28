@@ -27,11 +27,14 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="CityID">Select Excel (*.xlsx) file <span class="text-danger">*</span></label>
                                 <div class="col-sm-5">
-                                    <asp:FileUpload ID="Upload" runat="server" />
+                                    <asp:FileUpload ID="Upload" runat="server" required />
+                                    <asp:RequiredFieldValidator CssClass="red" runat="server" ControlToValidate="Upload" ValidationGroup="s">Please select excel file.</asp:RequiredFieldValidator>
                                 </div>
                                 <div class="col-sm-3">
-                                    <asp:LinkButton CssClass="btn btn-sm btn-info" ID="btnImport" runat="server"><i class="fa fa-upload"></i> Upload</asp:LinkButton>
-                                    <a href="SendSMS.aspx" class="btn btn-sm btn-success">Send SMS <i class="fa fa-arrow-circle-right"></i></a>
+                                    <asp:LinkButton CssClass="btn btn-sm btn-info" ID="btnImport" ValidationGroup="s" runat="server"><i class="fa fa-upload"></i> Upload</asp:LinkButton>
+                                    <a role="button" data-rel="tooltip" title="Send SMS" href="SendSMS.aspx" class="btn btn-white btn-success btn-bold"><i class="fa fa-send"></i></a>
+                                    <a role="button" data-rel="tooltip" class="btn btn-white btn-primary btn-bold" href="Clients.aspx"
+                                        tabindex="0" title="Add contact"><i class="fa fa-plus bigger-110"></i></a>
                                 </div>
                             </div>
                         </div>
