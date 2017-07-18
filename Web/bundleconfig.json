@@ -166,5 +166,23 @@
     "inputFiles": [
       "Content/sys/assets/css/pace.css"
     ]
+  },
+  {
+    "outputFileName": "sys/Social/cropper.min.js",
+    "inputFiles": [
+      "sys/Social/cropper.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/cropper/main.min.css",
+    "inputFiles": [
+      "Scripts/cropper/main.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/cropper/main.min.js",
+    "inputFiles": [
+      "Scripts/cropper/main.js"
+    ]
   }
 ]

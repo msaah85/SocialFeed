@@ -3,17 +3,17 @@
 /// 20-4-2017
 
 var
-    uti = uti || {},
     uti = function () {
 
         var
             init = function () {
 
             },
+
             mobileNumberFormat = function (mobNumber) {
 
                 // not a number
-                if (!mobNumber || mobNumber == NaN || mobNumber == '')
+                if (!mobNumber || mobNumber === NaN || mobNumber === '')
                     return '';
 
 
@@ -25,7 +25,7 @@ var
                     // get one by one.
                     var numberFormat = mobArr[i];
 
-                    if (!numberFormat || numberFormat == NaN || numberFormat.trim() == '')
+                    if (!numberFormat || numberFormat === NaN || numberFormat.trim() === '')
                         continue;
 
                     // extract numbers only from string 
@@ -63,8 +63,7 @@ var
 
         return {
             Init: init,
-            mobieFormat: mobileNumberFormat,
-            comp2json: compressed2Json
+            mobieFormat: mobileNumberFormat
         };
 
     }();

@@ -1,11 +1,10 @@
 ﻿using Facebook;
-using Hangfire;
 using InstaSharp;
 using System;
 using System.Dynamic;
 using System.Security;
+using System.Threading.Tasks;
 using TweetSharp;
-
 
 namespace Share.Social
 {
@@ -19,28 +18,22 @@ namespace Share.Social
         // long live page token from: https://developers.facebook.com/tools/explorer/        
         public static string PostingToAll(SocialPostModel options)
         {
-            // Fire-and-forget jobs are executed only once and almost immediately after creation.
-            // facebook page
-            string facebookJobId = "", instagramJobId = "";
-
             if (options.FacebookActive)
-                facebookJobId = BackgroundJob.Enqueue(() => PostToFB(options.Message, options.ImageBase64, options.FacebookPostURL, options.FacebookToken, options.InstagramID));
+                Task.Factory.StartNew(() => PostToFB(options.Message, options.ImageBase64, options.FacebookPostURL, options.FacebookToken, options.InstagramID));
 
-            ////Delayed jobs are executed only once too, but not immediately, after a certain time interval.
-            //// twitter page
-            //var twitterJobId = BackgroundJob.Schedule(() => PostToTwitter(postMsg, link), TimeSpan.FromMinutes(1));
-
-            //Continuations are executed when its parent job has been finished.
-            // instagram page
             if (options.InstagramActive)
-                instagramJobId = BackgroundJob.ContinueWith(facebookJobId, () => PostToInstagram(options.Message, options.ImageBase64, options.InstagramID, options.InstagramToken));
+                Task.Factory.StartNew(() => PostToInstagram(options.Message, options.ImageBase64, options.InstagramID, options.InstagramToken));
 
-            return string.Format("{0}, {1}", facebookJobId, instagramJobId);
+            return "Done!";
+
+            //// twitter page
+            //PostToTwitter(postMsg, link), TimeSpan.FromMinutes(1)
+            //Continuations are executed when its parent job has been finished.            
         }
         #endregion
 
         #region "Instagram"
-        public static void PostToInstagram(string Message, string base64Image, string inst_page_id, string inst_pass)
+        public static string PostToInstagram(string Message, string base64Image, string inst_page_id, string inst_pass)
         {
             var uploader = new InstagramUploader(inst_page_id, ConvertToSecureString(inst_pass));
             uploader.InvalidLoginEvent += InvalidLoginEvent;
@@ -50,10 +43,11 @@ namespace Share.Social
             try
             {
                 uploader.UploadBase64Image(base64Image, Message);
+                return "Success";
             }
             catch (Exception ex)
             {
-
+                return "Error!:" + ex.Message;
             }
         }
 
@@ -99,7 +93,7 @@ namespace Share.Social
         #endregion
 
         #region "Facebook"
-        public static void PostToFB(string postMsg, string picture, string fb_post_url, string fb_token, string externalLink)
+        public static Task<string> PostToFB(string postMsg, string picture, string fb_post_url, string fb_token, string externalLink)
         {
             #region "Post to Fan Page"
             try
@@ -108,7 +102,7 @@ namespace Share.Social
 
                 // fb post paramerters
                 dynamic parameters = new ExpandoObject();
-                parameters.caption = "Dar AlQimah Fashion";
+                parameters.caption = "#DarAlQimahFashion";
                 parameters.message = postMsg; // picture caption
                 parameters.link = string.Format("https://www.instagr.am/{0}", externalLink);
 
@@ -118,25 +112,26 @@ namespace Share.Social
                     ContentType = "image/jpeg",
                     FileName = Guid.NewGuid().ToString()
                 }.SetValue(Convert.FromBase64String(picture));
-
                 //parameters.source = new FacebookMediaObject
                 //{
                 //    ContentType = "image/jpeg",
                 //    FileName = Path.GetFileName(picture)
                 //}.SetValue(File.ReadAllBytes(HostingEnvironment.MapPath(picture))); // physical image path.
 
-                dynamic result = client.Post(fb_post_url, parameters);
 
+                return client.PostTaskAsync(fb_post_url, parameters);
                 // success message by post id
                 //client.Delete(result.id);
             }
             catch (FacebookOAuthException ex)
             {
                 // ex1 call log file
+                return null;
             }
             catch (FacebookApiException ex)
             {
                 //ex2 call log file
+                return null;
             }
 
             #endregion
