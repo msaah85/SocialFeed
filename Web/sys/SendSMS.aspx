@@ -1,4 +1,4 @@
-<%@ Page Title="Send SMS" Language="C#" MasterPageFile="master.master" AutoEventWireup="true" CodeFile="SendSMS.aspx.cs" Inherits="sys_SendSMS" %>
+<%@ Page Title="Send SMS" MasterPageFile="master.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/Content/sys/assets/css/chosen.min.css" rel="stylesheet" />
@@ -9,7 +9,20 @@
     <script src="/content/sys/assets/js/additional-methods.min.js"></script>
     <style>
         .chosen-container {
-            line-height: 32px;
+            line-height: 35px;
+        }
+
+        .results tr[visible='false'],
+        .no-result {
+            display: none;
+        }
+
+        .results tr[visible='true'] {
+            display: table-row;
+        }
+
+        input.search {
+            margin-top: 2px;
         }
     </style>
 </asp:Content>
@@ -54,7 +67,12 @@
                     <div class="widget-header">
                         <h5 class="widget-title bigger lighter">
                             <i class="ace-icon fa fa-table"></i>
-                            Clients List
+                            Clients 
+                             <span class="lighter inline">
+                                 [# 
+                            <span class="counter"></span>
+                                 rows]
+                             </span>
                         </h5>
                         <div class="widget-toolbar">
                             <a href="#" data-action="fullscreen" class="white">
@@ -87,10 +105,13 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="widget-toolbar no-border">
+                            <input type="text" class="search form-control" placeholder="What you looking for?" />
+                        </div>
                     </div>
                     <div class="widget-body">
                         <div class="widget-main no-padding">
-                            <table id="itemsDataTable" class="table table-striped table-bordered table-hover">
+                            <table id="itemsDataTable" class="table table-striped table-bordered table-hover results">
                                 <thead>
                                     <tr>
                                         <th class="center">
@@ -102,6 +123,10 @@
                                         <th>Client</th>
                                         <th>City</th>
                                         <th>Mobile</th>
+                                    </tr>
+                                    <tr class="warning no-result">
+                                        <td colspan="4"><i class="fa fa-warning"></i>
+                                            No search result</td>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -120,7 +145,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label no-padding-right" for="Message">Message <span class="text-danger">*</span></label>
                         <div class="col-sm-10">
-                            <textarea cols="15" rows="3" id="Message" name="Message" class="required form-control autosize" required placeholder="SMS message..."></textarea>
+                            <textarea cols="15" rows="3" id="Message" name="Message" class="required form-control autosize limited" required placeholder="SMS message..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -157,6 +182,6 @@
     <script src="/Scripts/sys/utilities.min.js"></script>
     <script src="/Content/sys/assets/js/autosize.min.js"></script>
     <script src="/Content/sys/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script src="/Scripts/sys/sendSMS.min.js?v=1.2"></script>
+    <script src="/Scripts/sys/sendSMS.min.js?v=1.3"></script>
     <script>pageManager.Init();</script>
 </asp:Content>

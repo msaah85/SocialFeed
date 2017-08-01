@@ -102,7 +102,7 @@ namespace Share.Social
 
                 // fb post paramerters
                 dynamic parameters = new ExpandoObject();
-                parameters.caption = "#DarAlQimahFashion";
+                parameters.caption = "@ShareWebDesignDotCom";
                 parameters.message = postMsg; // picture caption
                 parameters.link = string.Format("https://www.instagr.am/{0}", externalLink);
 

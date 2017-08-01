@@ -16,7 +16,7 @@ public static class Config
 
     // public
     public static string AdminUrl = "sys",
-        connString = ConfigurationManager.ConnectionStrings["Aliraqcars.Domain.Properties.Settings.AliraqCarsConnectionString"].ConnectionString,
+        connString = ConfigurationManager.ConnectionStrings["SysConnString"].ConnectionString,
     FacePageAppID = ConfigurationManager.AppSettings["FaceAppID"],
     FacePageAppSecret = ConfigurationManager.AppSettings["FaceAppSecret"],
     FacePageName = ConfigurationManager.AppSettings["FacePageName"],

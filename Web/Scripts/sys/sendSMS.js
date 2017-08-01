@@ -109,7 +109,7 @@ pageManager = function () {
                 checkRows = function checkRows(rowsCount, th_checked) {
                     rowsCount = rowsCount ? rowsCount : 0;
 
-                    $('#' + gridId + ' tbody > tr').each(function (i, row) {
+                    $('#' + gridId + ' tbody > tr:not([visible="false"])').each(function (i, row) {
                         //var row = this;
                         if (rowsCount === 0 || i <= rowsCount) {
                             if (th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true); else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
@@ -141,13 +141,13 @@ pageManager = function () {
 
                 var _rowsToSelect = $(this).data('rows');
 
-                if (_rowsToSelect) {
+                if (_rowsToSelect !== undefined) {
                     // reset selection
                     checkRows(undefined, false);
 
                     // select first n rows
-                    if (_rowsToSelect === 0) {
-                        checkRows(undefined, true);
+                    if (_rowsToSelect === '0') {
+                        checkRows(undefined, true); // select all
                     } else {
                         checkRows(_rowsToSelect, true);
                     }
@@ -157,37 +157,85 @@ pageManager = function () {
             // auto size textarea
             autosize($('textarea[class*=autosize]'));
 
-            ////message limit
-            //var limitMsg = function (limit) {
-            //    $('textarea.limited').inputlimiter({
-            //        limit: limit ? limit : 140,
-            //        remText: '%n character%s remaining...',
-            //        limitText: 'max allowed : %n.'
-            //    });
-            //};
-            //limitMsg();
+            //message limit
+            var _limit = 70;
+            var limitMsg = function () {
+                $('textarea.limited').inputlimiter({
+                    remTextFilter: function (opts, charsRemaining) {
+                        var charsTyped = $('textarea.limited').val().length,
+                            charsRemaining = _limit - charsTyped;
+                        return "You have typed " + charsTyped + " character" + (charsTyped == 1 ? '' : 's') + ".<br />" +
+                            "You have " + charsRemaining + " character" + (charsRemaining == 1 ? '' : 's') + " remaining.";
+                    },
+                    limitTextFilter: function (opts) {
+                        return "Message is limited to " + _limit + " character" + (_limit == 1 ? '' : 's') + ".";
+                    }
+                });
+            };
+            limitMsg();
 
-            ////change message limit by selecting the message language
-            //$('input[type=radio][name="Lang"]').change(function () {
-            //    var _this = $(this),
-            //        valu = _this.val(),
-            //        txtMesg = $('textarea.limited'),
-            //        minLimit = 70;
+            //change message limit by selecting the message language
+            $('input[type=radio][name="Lang"]').change(function () {
+                var _this = $(this),
+                    valu = _this.val(),
+                    txtMesg = $('textarea.limited'),
+                    minLimit = 70;
 
-            //    if (valu === '1') { // Arabic
-            //        txtMesg.attr('maxlength', minLimit);
-            //        limitMsg(minLimit);
+                if (valu === '1') { // Arabic
+                    _limit = minLimit;
+                    //txtMesg.attr('maxlength', minLimit);
 
-            //        if (txtMesg.val().toString().length > minLimit) {
-            //            txtMesg.val(function () {
-            //                return $(this).val().substring(0, minLimit);
-            //            });
-            //        }
-            //    } else { // English
-            //        txtMesg.attr('maxlength', 140);
-            //        limitMsg();
-            //    }
-            //});
+                    if (txtMesg.val().toString().length > minLimit) {
+                        txtMesg.val(function () {
+                            return $(this).val().substring(0, minLimit);
+                        });
+                    }
+                } else { // English
+                    //txtMesg.attr('maxlength', 140);
+                    _limit = 140;
+                }
+
+                limitMsg();
+            });
+
+            // search table
+            searchInResult();
+        },
+        searchInResult = function () {
+            var
+                filterResults = function (searchKey) {
+                    var listItem = $('.results tbody').children('tr'),
+                        searchSplit = searchKey.replace(/ /g, "'):containsi('");
+
+                    $.extend($.expr[':'], {
+                        'containsi': function (elem, i, match, array) {
+                            return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+                        }
+                    });
+
+                    $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function (e) {
+                        $(this).attr('visible', 'false');
+                    });
+
+                    $(".results tbody tr:containsi('" + searchSplit + "')").each(function (e) {
+                        $(this).attr('visible', 'true');
+                    });
+
+                    var jobCount = $('.results tbody tr[visible="true"]').length;
+                    $('.counter').text(jobCount);
+
+                    if (jobCount == '0') { $('.no-result').show(); }
+                    else { $('.no-result').hide(); }
+                },
+                $searchEl = $(".search");
+            
+            $(".search").keyup(function () {
+                var searchTerm = $searchEl.val();
+                filterResults(searchTerm);
+            });
+
+            // this will help for refilter after selecting another city.
+            if ($searchEl.val() !== '') filterResults($searchEl.val());            
         },
         calulateSelectedRowsCount = function calulateSelectedRowsCount() {
             var selRows = $('#' + gridId + ' tbody tr.active').length;
@@ -227,7 +275,6 @@ pageManager = function () {
                     value: cityID
                 },
                 showClientsList = function showClientsList(data) {
-
                     data = commonManger.decoData(data);
                     var list = data.list;
 
@@ -237,11 +284,14 @@ pageManager = function () {
                         }).get();
 
                         $('#' + gridId + ' tbody').html(rows);
+                        $('.counter').text(rows.length + 1);
                         $('#clientsListPanel,#' + formName).removeClass('hidden');
                     } else {
                         $('#clientsListPanel,#' + formName).addClass('hidden');
                         $('#' + gridId + ' tbody').html('');
                     }
+
+                    searchInResult(); // filter results
                 };
 
 
